@@ -12,16 +12,16 @@ app.use(express.static('public')); //to use files in the public folder like css
 
 app.get('/', async (req, res)=> {
     const vocaList = await Vocabulary.loadMany();
-    // const transList = await Translation.loadMany();
-    // const randomVoc = vocaList.id[Math.random(vocaList.length)]
     const randomVal = Math.floor(Math.random() * vocaList.length)
     const randomVoc = vocaList[randomVal].mot;
-    let answer = {"answer": req.body.answer}
-    // if (answer == transList[randomVal]){
-    // }
+    let Msg = {"Msg": req.body.Msg};
     console.table(vocaList);
     // console.table(transList);
-    res.render("home.ejs", {voca:vocaList, translation:[], randomVoc:randomVoc});
+    // res.render("home.ejs", {vocaList:vocaList, randomVoc:randomVoc});
+    res.render("home.ejs", {vocaList, randomVoc, Msg});
+
+    
+    // res.redirect("/");  
 });
 
 
@@ -34,7 +34,21 @@ app.post('/add', async (req, res) => {
     res.redirect("/");   
 });
 
+app.post('/saveAnswer', async (req, res) => {
+    const vocaList = await Vocabulary.loadMany();
+    const randomVal = Math.floor(Math.random() * vocaList.length)
+    let answer = req.body.answer;
+    // let Msg = req.body.Msg;
 
+
+    if (answer == vocaList[randomVal].traduction){
+        req.body.Msg="Good answer!";
+    }
+    else {
+        req.body.Msg="Bad answer!";
+    }
+    res.redirect("/");   
+});
 
 
 
