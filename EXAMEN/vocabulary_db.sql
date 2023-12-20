@@ -18,34 +18,6 @@ USE `vocabulary_db`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `translation`
---
-
-DROP TABLE IF EXISTS `translation`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `translation` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `mot_id` int DEFAULT NULL,
-  `response` varchar(45) DEFAULT NULL,
-  `iscorrect` tinyint(1) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `mot_id` (`mot_id`),
-  CONSTRAINT `translation_ibfk_1` FOREIGN KEY (`mot_id`) REFERENCES `voca` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `translation`
---
-
-LOCK TABLES `translation` WRITE;
-/*!40000 ALTER TABLE `translation` DISABLE KEYS */;
-INSERT INTO `translation` VALUES (1,1,'bonjour',NULL),(2,2,'au revoir',NULL),(3,3,'demain',NULL);
-/*!40000 ALTER TABLE `translation` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `voca`
 --
 
@@ -55,8 +27,10 @@ DROP TABLE IF EXISTS `voca`;
 CREATE TABLE `voca` (
   `id` int NOT NULL AUTO_INCREMENT,
   `mot` varchar(45) NOT NULL,
+  `traduction` varchar(45) NOT NULL,
+  `iscorrect` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -65,7 +39,7 @@ CREATE TABLE `voca` (
 
 LOCK TABLES `voca` WRITE;
 /*!40000 ALTER TABLE `voca` DISABLE KEYS */;
-INSERT INTO `voca` VALUES (1,'hello'),(2,'goodbye'),(3,'tomorrow');
+INSERT INTO `voca` VALUES (1,'hello','bonjour',NULL),(2,'goodbye','aurevoir',NULL),(3,'tomorrow','demain',NULL),(4,'watch','montre',NULL);
 /*!40000 ALTER TABLE `voca` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -78,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-12-20  9:40:01
+-- Dump completed on 2023-12-20 11:14:59
